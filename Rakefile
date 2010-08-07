@@ -5,12 +5,17 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "selenium-webdriver-viewers"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = 'Makes page objects and views for tests using selenium-webdriver.'
+    gem.description = <<-END_DESCRIPTION
+      This gem makes it easy to create page objects web viewers for use by tests that use selenium-webdriver. By
+      using page and viewer objects, you can decouple your tests from the html details so that they can focus
+      instead on describing the behaviour of your application. 
+    END_DESCRIPTION
     gem.email = "mcollas@yahoo.com"
     gem.homepage = "http://github.com/michaelcollas/selenium-webdriver-viewers"
     gem.authors = ["Michael Collas"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.files.exclude('.gitignore')
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
