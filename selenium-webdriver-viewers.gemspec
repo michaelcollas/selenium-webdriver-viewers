@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
      "lib/viewer.rb",
      "lib/webdriver-extensions.rb",
      "selenium-webdriver-viewers.gemspec",
+     "spec/browser-instance_spec.rb",
      "spec/selenium-webdriver-viewers_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
@@ -41,7 +42,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Makes page objects and views for tests using selenium-webdriver.}
   s.test_files = [
-    "spec/selenium-webdriver-viewers_spec.rb",
+    "spec/browser-instance_spec.rb",
+     "spec/selenium-webdriver-viewers_spec.rb",
      "spec/spec_helper.rb"
   ]
 
@@ -51,11 +53,17 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
+      s.add_development_dependency(%q<reek>, [">= 1.2.8"])
+      s.add_development_dependency(%q<sexp_processor>, [">= 3.0.4"])
     else
       s.add_dependency(%q<rspec>, [">= 1.2.9"])
+      s.add_dependency(%q<reek>, [">= 1.2.8"])
+      s.add_dependency(%q<sexp_processor>, [">= 3.0.4"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 1.2.9"])
+    s.add_dependency(%q<reek>, [">= 1.2.8"])
+    s.add_dependency(%q<sexp_processor>, [">= 3.0.4"])
   end
 end
 
