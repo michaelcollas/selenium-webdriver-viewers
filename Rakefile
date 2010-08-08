@@ -45,6 +45,7 @@ begin
     t.fail_on_error = true
     t.verbose = false
     t.source_files = 'lib/**/*.rb'
+    t.reek_opts << ' --quiet'
     t.ruby_opts << '-r' << 'rubygems' 
   end
 rescue LoadError
