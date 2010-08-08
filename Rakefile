@@ -15,6 +15,8 @@ begin
     gem.homepage = "http://github.com/michaelcollas/selenium-webdriver-viewers"
     gem.authors = ["Michael Collas"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "reek", ">= 1.2.8"
+    gem.add_development_dependency "sexp_processor", ">= 3.0.4"
     gem.files.exclude('.gitignore')
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
