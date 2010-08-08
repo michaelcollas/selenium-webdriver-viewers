@@ -38,11 +38,12 @@ end
 task :spec => :check_dependencies
 
 begin
-  require 'reek/adapters/rake_task'
-  Reek::RakeTask.new do |t|
+  require 'reek/rake/task'
+  Reek::Rake::Task.new do |t|
     t.fail_on_error = true
     t.verbose = false
     t.source_files = 'lib/**/*.rb'
+    t.ruby_opts << '-r' << 'rubygems' 
   end
 rescue LoadError
   task :reek do
