@@ -25,7 +25,12 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "lib/browser-instance.rb",
+     "lib/page.rb",
      "lib/selenium-webdriver-viewers.rb",
+     "lib/viewer.rb",
+     "lib/webdriver-extensions.rb",
+     "selenium-webdriver-viewers.gemspec",
      "spec/selenium-webdriver-viewers_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
