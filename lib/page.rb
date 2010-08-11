@@ -35,6 +35,9 @@ module WebPage
   
 end
 
+# WebPageObject is a base class for web viewers that represent a whole page. In addition to 
+# all the normal features of a web viewer, a web page object has url or path, and can 
+# navigate to the url or path using the load method.
 class WebPageObject
   include BrowserInstance
   include WebViewer
