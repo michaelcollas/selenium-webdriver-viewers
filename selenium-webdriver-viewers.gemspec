@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Collas"]
-  s.date = %q{2010-08-12}
+  s.date = %q{2010-08-13}
   s.description = %q{      This gem makes it easy to create page objects web viewers for use by tests that use selenium-webdriver. By
       using page and viewer objects, you can decouple your tests from the html details so that they can focus
       instead on describing the behaviour of your application. 
@@ -26,6 +26,9 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/browser-instance.rb",
+     "lib/element_reader.rb",
+     "lib/element_value_reader.rb",
+     "lib/element_value_writer.rb",
      "lib/page.rb",
      "lib/selenium-webdriver-viewers.rb",
      "lib/viewer.rb",

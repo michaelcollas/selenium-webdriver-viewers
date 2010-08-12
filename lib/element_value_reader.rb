@@ -1,5 +1,7 @@
 module WebViewer
 
+  # ElementValueReader acts on a Selenium::WebDriver::Element by fetching its value, clicking on it,
+  # reading its text, etc. 
   class ElementValueReader
 
     def initialize(element_reader, output_type)

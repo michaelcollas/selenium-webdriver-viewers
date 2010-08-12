@@ -1,5 +1,8 @@
 module WebViewer
 
+  # ElementReader fetches a Selenium::WebDriver::Element for a particular selector. If the selector
+  # requires parameters, ElementReader defers reading from WebDriver until the parameters are
+  # provided using the [] method.
   class ElementReader
 
     def initialize(viewer, selector, selector_type)

@@ -1,5 +1,7 @@
 module WebViewer
 
+  # ElementValueWriter assigns a value to a Selenium::WebDriver::Element. It uses the element_type
+  # parameter passed in the constructor to determine how to write to the element.
   class ElementValueWriter
 
     def initialize(web_element, element_type)
