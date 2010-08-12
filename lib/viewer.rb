@@ -1,6 +1,9 @@
+require 'forwardable'
 require 'browser-instance'
 require 'webdriver-extensions'
-require 'forwardable'
+require 'element_reader'
+require 'element_value_reader'
+require 'element_value_writer'
 
 module WebViewer
   
@@ -29,104 +32,6 @@ module WebViewer
     true
     rescue Selenium::WebDriver::Error::NoSuchElementError
       false
-  end
-
-  private
-
-  class ElementReader
-
-    def initialize(viewer, selector, selector_type)
-      @viewer = viewer
-      @selector = selector
-      @selector_type = selector_type
-    end
- 
-    def requires_parameters?
-      @selector.respond_to?(:call) && @selector.respond_to?(:arity) && @selector.arity > 0
-    end
-
-    def callable_selector?
-      @selector.respond_to?(:call) 
-    end
-
-    # return either self or element depending on whether selector needs parameters
-    def get(*arguments)
-      return element unless callable_selector?
-      if (arguments.length > 0) || !requires_parameters?
-        element(@selector.call(*arguments))
-      else
-        self
-      end
-    end
-
-    def [](*arguments)
-      selector_text = @selector.call(*arguments)
-      self.element(selector_text)
-    end
-
-    def element(selector_text = @selector)
-      @viewer.find_element(@selector_type, selector_text)
-    end
-
-  end
-
-  class ElementValueReader
-
-    def initialize(element_reader, output_type)
-      @element_reader = element_reader
-      @output_type = output_type
-    end
-
-    # return either self or element_value depending on whether selector needs parameters
-    def get
-      if @element_reader.requires_parameters?
-        self
-      else
-        element_value
-      end
-    end
-
-    def [](*args)
-      element_value(*args)
-    end
-
-    def []=(*arguments)
-      value_to_assign = arguments.pop
-      element = @element_reader.get(*arguments)
-      ElementValueWriter.new(element, @output_type).value = value_to_assign
-    end
-
-    def element_value(*arguments)
-      if (Class === @output_type)
-        element_as_viewer(*arguments)
-      elsif [:auto, :link, :select_by_text, :select_by_value].include? @output_type
-        raise "not yet implemented"
-      else
-        @element_reader.get(*arguments).send(@output_type)
-      end
-    end
-
-    def element_as_viewer(*arguments)
-      viewer = @output_type.new
-      base_element_proc = lambda { @element_reader.get(*arguments) }
-      viewer.instance_variable_set(:@base_element_proc, base_element_proc)
-      viewer
-    end
-
-  end
-
-  class ElementValueWriter
-
-    def initialize(web_element, element_type)
-      @web_element = web_element
-      @element_type = element_type
-    end
-
-    def value=(new_value)
-      # do smart things with element_type in here
-      @web_element.value = new_value
-    end
-
   end
 
   module ClassMethods
