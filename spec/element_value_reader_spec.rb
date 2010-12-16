@@ -46,27 +46,27 @@ describe WebViewer::ElementValueReader do
 
     end
 
-    describe ('and the type is :auto', :output_type => :auto) { it_should_behave_like UnimplementedOutputType }
-    describe ('and the type is :link', :output_type => :link) { it_should_behave_like UnimplementedOutputType }
-    describe ('and the type is :select_by_text', :output_type => :select_by_text) { it_should_behave_like UnimplementedOutputType }
-    describe ('and the type is :select_by_value', :output_type => :select_by_value) { it_should_behave_like UnimplementedOutputType }
+    describe('and the type is :auto', :output_type => :auto) { it_should_behave_like UnimplementedOutputType }
+    describe('and the type is :link', :output_type => :link) { it_should_behave_like UnimplementedOutputType }
+    describe('and the type is :select_by_text', :output_type => :select_by_text) { it_should_behave_like UnimplementedOutputType }
+    describe('and the type is :select_by_value', :output_type => :select_by_value) { it_should_behave_like UnimplementedOutputType }
 
     describe 'and the output type is a class' do
 
-      class FakeViewer
-        attr :base_element_proc
-      end
-
       before do
-        @value_reader = WebViewer::ElementValueReader.new(@element_reader, FakeViewer)
+        output_viewer_class = Class.new(Object)
+        @output_viewer = stub('a different viewer', :base_element= => nil)
+        output_viewer_class.stub(:new).and_return(@output_viewer)
+        @value_reader = WebViewer::ElementValueReader.new(@element_reader, output_viewer_class)
       end
 
       it 'should return an instance of the specified class' do
-        @value_reader.get.should be_instance_of(FakeViewer)
+        @value_reader.get.should == @output_viewer
       end
 
-      it 'should put a base_element_proc instance value into the returned object' do
-        @value_reader.get.base_element_proc.should_not be_nil
+      it 'should put a base_element proc into the returned object' do
+        @output_viewer.should_receive(:base_element=).with(a_kind_of(Proc))
+        @value_reader.get
       end
 
     end
@@ -134,24 +134,28 @@ describe WebViewer::ElementValueReader do
 
     end
 
-    describe ('and the type is :auto', :output_type => :auto) { it_should_behave_like UnimplementedOutputType }
-    describe ('and the type is :link', :output_type => :link) { it_should_behave_like UnimplementedOutputType }
-    describe ('and the type is :select_by_text', :output_type => :select_by_text) { it_should_behave_like UnimplementedOutputType }
-    describe ('and the type is :select_by_value', :output_type => :select_by_value) { it_should_behave_like UnimplementedOutputType }
+    describe('and the type is :auto', :output_type => :auto) { it_should_behave_like UnimplementedOutputType }
+    describe('and the type is :link', :output_type => :link) { it_should_behave_like UnimplementedOutputType }
+    describe('and the type is :select_by_text', :output_type => :select_by_text) { it_should_behave_like UnimplementedOutputType }
+    describe('and the type is :select_by_value', :output_type => :select_by_value) { it_should_behave_like UnimplementedOutputType }
 
     describe 'and the output type is a class' do
 
       before do
-        @value_reader = WebViewer::ElementValueReader.new(@element_reader, FakeViewer)
+        output_viewer_class = Class.new(Object)
+        @output_viewer = stub('a different viewer', :base_element= => nil)
+        output_viewer_class.stub(:new).and_return(@output_viewer)
+        @value_reader = WebViewer::ElementValueReader.new(@element_reader, output_viewer_class)
       end
 
       it 'should return an instance of the specified class' do
-        @value_reader[1, 2].should be_instance_of(FakeViewer)
+        @value_reader[1, 2].should == @output_viewer
       end
 
-      it 'should put a base_element_proc instance value that gets the element from the reader into the returned object' do
+      it 'should put a base_element proc that gets the element from the reader into the returned object' do
+        @output_viewer.stub(:base_element=) { |assigned_base_element_proc| assigned_base_element_proc.call }
         @element_reader.should_receive(:get).with(1, 2)
-        @value_reader[1, 2].base_element_proc.call
+        @value_reader[1, 2]
       end
 
     end

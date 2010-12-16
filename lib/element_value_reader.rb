@@ -40,8 +40,7 @@ module WebViewer
 
     def element_as_viewer(*arguments)
       viewer = @output_type.new
-      base_element_proc = lambda { @element_reader.get(*arguments) }
-      viewer.instance_variable_set(:@base_element_proc, base_element_proc)
+      viewer.base_element = lambda { @element_reader.get(*arguments) }
       viewer
     end
 

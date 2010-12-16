@@ -15,7 +15,8 @@ module WebViewer
                                 :enabled?, :find_element, :find_elements, :first, :hover, :location, :ref, :select, :selected?, 
                                 :send_key, :send_keys, :size, :style, :submit, :tag_name, :text, :toggle, :value, 
                                 :element_present?, :wait_for_element_present
-            
+
+  attr_writer :base_element          
 
   def self.included(target)
     super
@@ -23,8 +24,8 @@ module WebViewer
   end
   
   def base_element
-    return @base_element_proc.call if @base_element_proc
-    browser.find_element(:tag_name, 'html')
+    return @base_element.call if @base_element.respond_to?(:call)
+    return @base_element || browser.find_element(:tag_name, 'html')
   end
 
   def showing?
