@@ -1,5 +1,4 @@
 require 'selenium-webdriver'
-require 'selenium/webdriver/navigation'
 
 module BrowserInstance
 
