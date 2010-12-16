@@ -7,7 +7,7 @@ begin
     gem.name = "selenium-webdriver-viewers"
     gem.summary = 'Makes page objects and views for tests using selenium-webdriver.'
     gem.description = <<-END_DESCRIPTION
-      This gem makes it easy to create page objects web viewers for use by tests that use selenium-webdriver. By
+      This gem makes it easy to create page and web viewer objects for use by tests that use selenium-webdriver. By
       using page and viewer objects, you can decouple your tests from the html details so that they can focus
       instead on describing the behaviour of your application. 
     END_DESCRIPTION
