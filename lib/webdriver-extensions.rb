@@ -20,7 +20,9 @@ module Selenium
   module WebDriver
 
     module Find
-      
+
+      FINDERS[:label] = 'Label'
+
       def element_present?(how, what, how_long=0)
         wait_for_element_present(how, what, how_long)
         true
@@ -48,6 +50,20 @@ module Selenium
       include HumaneWebDriverExtensions
     end
  
+    module Remote
+  
+      class Bridge
+  
+        def findElementByLabel(parent, label_text)
+          element_id = findElementByXpath(parent, %<.//label[text()="#{label_text}"]>).attribute(:for)
+          findElementById(parent, element_id)
+        end
+  
+      end
+  
+    end
+
   end
+
 end
 
